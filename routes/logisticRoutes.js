@@ -1,4 +1,6 @@
 const { getCcr, browseCcrIn, browseCCrOut } = require("../controllers/logistics/ccr/ccr");
+const { browseCourierIn, browseCourierOut, browseCourierInvoice } = require("../controllers/logistics/courier/courier");
+const { browseJwIn, browseJwOut } = require("../controllers/logistics/jw/jw");
 
 const { browseMrnDc, prevMrnMainDetailDc, prevMrnItemDetailDc, insertMrnMainDetailDc, pickDcInMrn, DcDetailInMrn, getMrn, browseMrnPo } = require("../controllers/logistics/mrn/mrn");
 const { browseRgp, browseRrgp } = require("../controllers/logistics/rgp/rgp");
@@ -18,12 +20,15 @@ logisticRoute.get('/get_ccr',getCcr);
 logisticRoute.post("/browse_ccrin",browseCcrIn);
 logisticRoute.post("/browse_ccrout",browseCCrOut);
 // jw
+logisticRoute.post("/browse_jwout",browseJwOut);
+logisticRoute.post("/browse_jwin",browseJwIn);
 //courier
-logisticRoute.post("/browse_ccrin",browseCcrIn);
-logisticRoute.post("/browse_ccrout",browseCCrOut);
-// rcr
+logisticRoute.post("/browse_courierin",browseCourierIn);
+logisticRoute.post("/browse_courierout",browseCourierOut);
+logisticRoute.post("/browse_courierinvoice",browseCourierInvoice);
+// rgp
 logisticRoute.post("/browse_rgp",browseRgp);
 logisticRoute.post("/browse_rrgp",browseRrgp);
-// rgp
+
 
 module.exports=logisticRoute;

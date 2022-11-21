@@ -17,6 +17,7 @@ mdc.post('/browsemdc',asyncHandler(async(req,res,next)=>{
             .input("chk_all",req.body.chk_all)
             .input("approval",req.body.approval)
             .input("status",req.body.status)
+            .input("global",filter_value)
             .execute("browse_mdc")
         }).then(result=>{
             const data =
@@ -233,14 +234,11 @@ mdc.post('/insertmdc',async(req,res,next)=>{
     }
 });
 mdc.get('/accountlist',async(req,res,next)=>{
-    try{  
+    try{   
         sql.connect(config.config)
         .then(pool=>{
-
             return pool
-          
             .request()
-          
             .input("search", req.query.search)
             .execute("list_account_company")
         }).then(result=>{

@@ -16,7 +16,7 @@ exports.browseCcrIn= asyncHandler(async (req, res) => {
             .request()
             .input("user_id", req.body.user_id)
             .input("chk_all", req.body.chk_all)
-            // .input("search", filter_value)
+            .input("global", filter_value)
             .execute("browse_ccrin");
         })
         .then((result) => {
@@ -59,7 +59,7 @@ exports.browseCCrOut= asyncHandler(async (req, res) => {
             .input("user_id", req.body.user_id)
             .input("chk_all", req.body.chk_all)
             .input("status", req.body.status)
-            .input("global", req.body.global)
+            .input("global", filter_value)
             
             // .input("search", filter_value)
             .execute("browse_ccrout");

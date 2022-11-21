@@ -5,7 +5,7 @@ const asyncHandler = require("express-async-handler")
 exports.getCourier = asyncHandler(async (req, res, next) => {
     res.send("courier Get")
 });
-// courier in
+// courier invoice
 exports.browseCourierIn= asyncHandler(async (req, res) => {
     try {
       const { filter_value, page_number, page_size, sort_column, sort_order } =
@@ -17,8 +17,8 @@ exports.browseCourierIn= asyncHandler(async (req, res) => {
             .request()
             .input("user_id", req.body.user_id)
             .input("chk_all", req.body.chk_all)
-            // .input("search", filter_value)
-            .execute("browse_ccrin");
+            .input("global", filter_value)
+            .execute("browse_courier_in");
         })
         .then((result) => {
           const data =
@@ -60,10 +60,8 @@ exports.browseCourierOut= asyncHandler(async (req, res) => {
             .input("user_id", req.body.user_id)
             .input("chk_all", req.body.chk_all)
             .input("status", req.body.status)
-            .input("global", req.body.global)
-            
-            // .input("search", filter_value)
-            .execute("browse_ccrout");
+            .input("global", filter_value)
+            .execute("browse_courier_out");
         })
         .then((result) => {
           const data =
@@ -92,6 +90,7 @@ exports.browseCourierOut= asyncHandler(async (req, res) => {
       });
     }
   });
+  //courier in
   exports.browseCourierInvoice= asyncHandler(async (req, res) => {
     try {
       const { filter_value, page_number, page_size, sort_column, sort_order } =
@@ -103,11 +102,8 @@ exports.browseCourierOut= asyncHandler(async (req, res) => {
             .request()
             .input("user_id", req.body.user_id)
             .input("chk_all", req.body.chk_all)
-            .input("status", req.body.status)
-            .input("global", req.body.global)
-            
-            // .input("search", filter_value)
-            .execute("browse_ccrout");
+            .input("global", filter_value)
+            .execute("browse_courier_invoice");
         })
         .then((result) => {
           const data =

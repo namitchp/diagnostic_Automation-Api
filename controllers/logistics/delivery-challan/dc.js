@@ -394,7 +394,7 @@ dc.post(
             .input("chk_all", req.body.chk_all)
             .input("status", req.body.status)
             .input("Sl_type", req.body.sl_type)
-            // .input("search", filter_value)
+            .input("global", filter_value)
             .execute("browse_wip ");
         })
         .then((result) => {

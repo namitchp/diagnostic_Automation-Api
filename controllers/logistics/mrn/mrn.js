@@ -5,6 +5,7 @@ const asyncHandler = require("express-async-handler")
 exports.getMrn = asyncHandler(async (req, res, next) => {
     res.send("mrn Get")
 });
+//browse mrn dc
 exports.browseMrnDc = asyncHandler(async (req, res, next) => {
     try {
         const { filter_value, page_number, page_size, sort_column, sort_order } =req.query;
@@ -13,6 +14,7 @@ exports.browseMrnDc = asyncHandler(async (req, res, next) => {
                 return pool.request()
                     .input("user_id", req.body.user_id)
                     .input("chk_all", req.body.chk_all)
+                    .input("global", filter_value)
                     .execute("browse_mrn")
             }).then(result => {
                 const data=result.recordset.length>0?result.recordset.slice(((page_number-1)*page_size),page_number*page_size):[];
@@ -45,6 +47,7 @@ exports.browseMrnPo = asyncHandler(async (req, res, next) => {
                     .input("user_id", req.body.user_id)
                     .input("chk_all", req.body.chk_all)
                     .input("status", req.body.status)
+                    .input("global", filter_value)
                     .execute("browse_mrn_po")
             }).then(result => {
                 const data=result.recordset.length>0?result.recordset.slice(((page_number-1)*page_size),page_number*page_size):[];

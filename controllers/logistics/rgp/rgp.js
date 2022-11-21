@@ -17,8 +17,7 @@ exports.browseRgp= asyncHandler(async (req, res) => {
               .input("user_id", req.body.user_id)
               .input("chk_all", req.body.chk_all)
               .input("status", req.body.status)
-              .input("global", req.body.global)
-              // .input("search", filter_value)
+              .input("global", filter_value)
               .execute("browse_rgp ");
           })
           .then((result) => {
@@ -61,8 +60,7 @@ exports.browseRgp= asyncHandler(async (req, res) => {
                 .input("user_id", req.body.user_id)
                 .input("chk_all", req.body.chk_all)
                 .input("flag", req.body.flag)
-                
-                // .input("search", filter_value)
+                .input("global", filter_value)
                 .execute("browse_rrgp ");
             })
             .then((result) => {
