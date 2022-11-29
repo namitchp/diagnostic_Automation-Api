@@ -408,11 +408,11 @@ dc.post(
           res.send({
             status: 200,
             data: data,
-            totalRecords: result.recordset.length,
+            totaldata: result.recordset.length,
           });
         })
         .catch((err) => {
-          res.send({
+          res.status(400).send({
             status: 400,
             message: err,
           });

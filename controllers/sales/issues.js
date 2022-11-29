@@ -17,7 +17,7 @@ exports.browseEnquiry= asyncHandler(async (req, res) => {
             .input("status", req.body.status)
             .input("mark_engg", req.body.mark_engg)
             // .input("global", filter_value)
-            .execute("browse_enquiry");
+            .execute("browse_marketing_visit");
         })
         .then((result) => {
           const data =
