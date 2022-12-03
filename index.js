@@ -8,6 +8,8 @@ const { menu } = require("./controllers/menulist/menu");
 const  logisticRoute  = require("./routes/logisticRoutes");
 const { userRoute } = require("./controllers/user/user");
 const { salesRoute } = require("./routes/sales");
+const { masterRoutes } = require("./routes/master");
+const { ioniaRoutes } = require("./controllers/ionia/ionia");
 require("dotenv").config();
 const app = express();
 app.use(cors());
@@ -16,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
   res.json({ message: "Diagnostic Application" });
 });
-
+app.use(express.static("public"));
 // API
 app.use((err,req,res,next)=>{
   console.log(err.stack)
@@ -27,7 +29,9 @@ app.use('/logistic/mdc',mdc);
 app.use('/menu',menu);
 app.use('/logistic',logisticRoute);
 app.use('/user',userRoute);
-app.use('/sales',salesRoute)
+app.use('/sales',salesRoute);
+app.use('/master',masterRoutes);
+app.use("/ionia",ioniaRoutes)
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
