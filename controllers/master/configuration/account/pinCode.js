@@ -122,7 +122,7 @@ exports.browsePinCode= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-          .input("group_id",req.body.group_id)
+          .input("pin_code_id",req.body.pin_code_id)
             .execute("preview_pincode");
         })
         .then((result) => {
