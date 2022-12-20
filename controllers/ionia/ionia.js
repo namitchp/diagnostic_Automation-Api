@@ -147,7 +147,4 @@ let eventPerson=new sql.Table("ionia_event_registration_person")
     })
 }
 });
-
-
-
 module.exports={ioniaRoutes}

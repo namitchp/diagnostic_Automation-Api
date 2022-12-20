@@ -10,13 +10,13 @@ exports.browsePinCode= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_pincode ");
+            .input("global",filter_value)
+            .execute("browse_pincode_new ");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -122,7 +122,7 @@ exports.browsePinCode= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-          .input("group_id",req.body.group_id)
+          .input("pin_code_id",req.body.pin_code_id)
             .execute("preview_pincode");
         })
         .then((result) => {
