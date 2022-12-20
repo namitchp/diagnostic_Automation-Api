@@ -1,9 +1,9 @@
-const { browseCourier, insertCourier, previewCourier, deleteCourier } = require('../controllers/master/configuration/account/courier/courier');
+const { browseCourier, previewCourier, insertCourier, deleteCourier } = require('../controllers/master/configuration/courier/courier');
 const { browseDepartment, insertDepartment, previewDepartment, deleteDepartment } = require('../controllers/master/configuration/account/department');
 const { browseDesignation, insertDesignation, previewDesignation, deleteDesignation } = require('../controllers/master/configuration/account/designation');
 const { browseGroup, insertGroup, previewGroup, deleteGroup } = require('../controllers/master/configuration/account/group');
 const { browsePinCode, insertPinCode, previewPinCode, deletePinCode } = require('../controllers/master/configuration/account/pinCode');
-const { browseQuo, insertQuo, previewQuo, deleteQuo } = require('../controllers/master/configuration/account/quotation/quotation');
+const { browseQuo, insertQuo, previewQuo, deleteQuo } = require('../controllers/master/configuration/quotation/quotation');
 const { browseRating, insertRating, previewRating, deleteRating } = require('../controllers/master/configuration/account/rating');
 const { browseRegion, insertRegion, previewRegion, deleteRegion } = require('../controllers/master/configuration/account/region');
 const { browseSiemen, insertSiemen, previewSiemen, deleteSiemen } = require('../controllers/master/configuration/account/siemens');
@@ -12,12 +12,14 @@ const { browseLedger, insertLedger, previewLedger, deleteLedger, browseFinance, 
 const { browseCategory, insertCategory, previewCategory, deleteCategory } = require('../controllers/master/configuration/product/category');
 const { browseGg, insertGg, previewGg, deleteGg } = require('../controllers/master/configuration/product/gg');
 const { browsePGroup, insertPGroup, previewPGroup, deletePGroup } = require('../controllers/master/configuration/product/group');
-const { browseItem, insertItem, previewItem, deleteItem } = require('../controllers/master/configuration/product/item');
-const { browseUnit, insertUnit, previewUnit, deleteUnit } = require('../controllers/master/configuration/product/unit');
+const { browseItem, insertItem, previewItem, deleteItem } = require('../controllers/master/configuration/product/item'); 
+const { browseUnit, insertUnit, previewUnit, deleteUnit } = require('../controllers/master/configuration/product/unit'); 
 const { browseType, insertType, previewType, deleteType, browsePriority, insertPriority, previewPriority, deletePriority, browseStatus, insertStatus, previewStatus, deleteStatus, browseReference, insertReference, previewReference, deleteReference } = require('../controllers/master/configuration/salesEnquiry/allEnquiry');
 const { browseClause, insertClause, previewClause, deleteClause, browseFreight, insertFreight, previewFreight, deleteFreight, browseInsurance, insertInsurance, previewInsurance, deleteInsurance, browseOctroi, insertOctroi, previewOctroi, deleteOctroi, browsePf, insertPf, previewPf, deletePf, browseLoading, insertLoading, previewLoading, deleteLoading, browseBoarding, insertBoarding, previewBoarding, deleteBoarding, browseTravel, insertTravel, previewTravel, deleteTravel, browseConveyance, insertConveyance, previewConveyance, deleteConveyance, browsePayment, insertPayment, previewPayment, deletePayment, browseSalestax, insertSalestax, previewSalestax, deleteSalestax, browseExciseduty, insertExciseduty, previewExciseduty, deleteExciseduty, browseDelivery, insertDelivery, previewDelivery, deleteDelivery, browseValidity, insertValidity, previewValidity, deleteValidity, browseMode, insertMode, previewMode, deleteMode, browseInspection, insertInspection, previewInspection, deleteInspection } = require('../controllers/master/configuration/salesOrder/allSalesOrder');
-
 const masterRoutes=require('express').Router();
+
+//Account Master
+
 ///configure master
 ///group  Account
 masterRoutes.post("/browse_group",browseGroup);

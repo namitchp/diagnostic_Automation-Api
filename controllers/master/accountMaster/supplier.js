@@ -1,7 +1,7 @@
-const { config } = require("../../../../../config/config");
+const { config } = require("../../../config/config");
 const sql=require("mssql");
 const asyncHandler=require("express-async-handler");
-exports.browseCourier= asyncHandler(async (req, res) => {
+exports.browseDepartment= asyncHandler(async (req, res) => {
     try {
       const { filter_value, page_number, page_size, sort_column, sort_order } =
         req.query;
@@ -11,7 +11,7 @@ exports.browseCourier= asyncHandler(async (req, res) => {
           return pool
             .request()
             // .input("global",filter_value)
-            .execute("browse_courier ");
+            .execute("browse_department ");
         })
         .then((result) => {
           const data =
@@ -41,7 +41,7 @@ exports.browseCourier= asyncHandler(async (req, res) => {
       });
     }
   });
-  exports.insertCourier= asyncHandler(async (req, res) => {
+  exports.insertDepartment= asyncHandler(async (req, res) => {
     try {
     
       await sql
@@ -49,14 +49,16 @@ exports.browseCourier= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-          .input("courier_id",req.body.courier_id)
-          .input("courier_name",req.body.courier_name)
-        //   .input("description",req.body.description)
+          .input("department_id",req.body.department_id)
+          .input("department_name",req.body.department_name)
+          .input("description",req.body.description)
           .input("user_id",req.body.user_id)
+          .input("user_name",req.body.user_name)
           .output("new_identity")
-            .execute("insert_courier_master ");
+            .execute("insert_department_master ");
         })
         .then((result) => {
+        
           res.send({
             status: 200,
           message:"success"
@@ -76,7 +78,8 @@ exports.browseCourier= asyncHandler(async (req, res) => {
       });
     }
   });
-  exports.deleteCourier= asyncHandler(async (req, res) => {
+
+  exports.deleteDepartment= asyncHandler(async (req, res) => {
     try {
      
       await sql
@@ -84,8 +87,8 @@ exports.browseCourier= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            .input("courier_id",req.body.courier_id)
-            .execute("delete_courier ");
+            .input("department_id",req.body.department_id)
+            .execute("delete_department ");
         })
         .then((result) => {
           
@@ -108,7 +111,7 @@ exports.browseCourier= asyncHandler(async (req, res) => {
       });
     }
   });
-  exports.previewCourier= asyncHandler(async (req, res) => {
+  exports.previewDepartment= asyncHandler(async (req, res) => {
     try {
     
       await sql
@@ -116,16 +119,14 @@ exports.browseCourier= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-          .input("courier_id",req.body.courier_id)
-            .execute("preview_courier");
+          .input("department_id",req.body.department_id)
+            .execute("preview_department");
         })
         .then((result) => {
-        
           res.send({
             status: 200,
           message:"success",
           data:result.recordset
-      
           });
         })
         .catch((err) => {

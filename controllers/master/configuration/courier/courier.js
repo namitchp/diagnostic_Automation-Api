@@ -1,7 +1,7 @@
-const { config } = require("../../../../../config/config");
+const { config } = require("../../../../config/config");
 const sql=require("mssql");
 const asyncHandler=require("express-async-handler");
-exports.browseQuo= asyncHandler(async (req, res) => {
+exports.browseCourier= asyncHandler(async (req, res) => {
     try {
       const { filter_value, page_number, page_size, sort_column, sort_order } =
         req.query;
@@ -10,13 +10,13 @@ exports.browseQuo= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_quot_status ");
+            .input("global",filter_value)
+            .execute("browse_courier_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -41,7 +41,7 @@ exports.browseQuo= asyncHandler(async (req, res) => {
       });
     }
   });
-  exports.insertQuo= asyncHandler(async (req, res) => {
+  exports.insertCourier= asyncHandler(async (req, res) => {
     try {
     
       await sql
@@ -49,15 +49,14 @@ exports.browseQuo= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-          .input("status_id",req.body.status_id)
-          .input("status_name",req.body.status_name)
-          .input("description",req.body.description)
+          .input("courier_id",req.body.courier_id)
+          .input("courier_name",req.body.courier_name)
+        //   .input("description",req.body.description)
           .input("user_id",req.body.user_id)
           .output("new_identity")
-            .execute("insert_quot_status_master ");
+            .execute("insert_courier_master ");
         })
         .then((result) => {
-        
           res.send({
             status: 200,
           message:"success"
@@ -77,7 +76,7 @@ exports.browseQuo= asyncHandler(async (req, res) => {
       });
     }
   });
-  exports.deleteQuo= asyncHandler(async (req, res) => {
+  exports.deleteCourier= asyncHandler(async (req, res) => {
     try {
      
       await sql
@@ -85,8 +84,8 @@ exports.browseQuo= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            .input("status_id",req.body.status_id)
-            .execute("delete_quot_status ");
+            .input("courier_id",req.body.courier_id)
+            .execute("delete_courier ");
         })
         .then((result) => {
           
@@ -109,21 +108,24 @@ exports.browseQuo= asyncHandler(async (req, res) => {
       });
     }
   });
-  exports.previewQuo= asyncHandler(async (req, res) => {
+  exports.previewCourier= asyncHandler(async (req, res) => {
     try {
+    
       await sql
         .connect(config)
         .then((pool) => {
           return pool
             .request()
-          .input("status_id",req.body.status_id)
-            .execute("preview_quot_status");
+          .input("courier_id",req.body.courier_id)
+            .execute("preview_courier");
         })
         .then((result) => {
+        
           res.send({
             status: 200,
           message:"success",
           data:result.recordset
+      
           });
         })
         .catch((err) => {

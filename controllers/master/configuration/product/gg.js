@@ -10,13 +10,13 @@ exports.browseGg= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_gg ");
+            .input("global",filter_value)
+            .execute("browse_gg_new ");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )

@@ -1,7 +1,7 @@
-const { config } = require("../../../../config/config");
+const { config } = require("../../../config/config");
 const sql=require("mssql");
 const asyncHandler=require("express-async-handler");
-exports.browseCategory= asyncHandler(async (req, res) => {
+exports.browseDepartment= asyncHandler(async (req, res) => {
     try {
       const { filter_value, page_number, page_size, sort_column, sort_order } =
         req.query;
@@ -10,13 +10,13 @@ exports.browseCategory= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            .input("global",filter_value)
-            .execute("list_pcategory_master_new ");
+            // .input("global",filter_value)
+            .execute("browse_department ");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.reverse().slice(
+              ? result.recordset.slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -41,7 +41,7 @@ exports.browseCategory= asyncHandler(async (req, res) => {
       });
     }
   });
-  exports.insertCategory= asyncHandler(async (req, res) => {
+  exports.insertDepartment= asyncHandler(async (req, res) => {
     try {
     
       await sql
@@ -49,13 +49,13 @@ exports.browseCategory= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-          .input("p_category_id",req.body.p_category_id)
-          .input("p_category_name",req.body.p_category_name)
+          .input("department_id",req.body.department_id)
+          .input("department_name",req.body.department_name)
           .input("description",req.body.description)
           .input("user_id",req.body.user_id)
           .input("user_name",req.body.user_name)
           .output("new_identity")
-            .execute("insert_pcategory_master ");
+            .execute("insert_department_master ");
         })
         .then((result) => {
         
@@ -79,7 +79,7 @@ exports.browseCategory= asyncHandler(async (req, res) => {
     }
   });
 
-  exports.deleteCategory= asyncHandler(async (req, res) => {
+  exports.deleteDepartment= asyncHandler(async (req, res) => {
     try {
      
       await sql
@@ -87,8 +87,8 @@ exports.browseCategory= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            .input("p_category_id",req.body.p_category_id)
-            .execute("delete_pcategory ");
+            .input("department_id",req.body.department_id)
+            .execute("delete_department ");
         })
         .then((result) => {
           
@@ -111,7 +111,7 @@ exports.browseCategory= asyncHandler(async (req, res) => {
       });
     }
   });
-  exports.previewCategory= asyncHandler(async (req, res) => {
+  exports.previewDepartment= asyncHandler(async (req, res) => {
     try {
     
       await sql
@@ -119,8 +119,8 @@ exports.browseCategory= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-          .input("p_category_id",req.body.p_category_id)
-            .execute("preview_p_category");
+          .input("department_id",req.body.department_id)
+            .execute("preview_department");
         })
         .then((result) => {
         
@@ -144,45 +144,3 @@ exports.browseCategory= asyncHandler(async (req, res) => {
       });
     }
   });
-
-
-
-// browse_group
-// insert_group_master
-// preview_group
-// delete_group
-
-// browse_pincode
-// insert_pincode_master
-// preview_pincode
-// delete_pincode
-
-// browse_region
-// insert_region_master
-// preview_region
-// delete_region
-
-// browse_rating
-// insert_rating_master
-// preview_rating
-// delete_rating
-
-// browse_department
-// insert_department_master
-// preview_department
-// delete_department
-
-// browse_designation
-// insert_designation_master
-// preview_designation
-// delete_designation
-
-// browse_siemens
-// insert_siemens_engg
-// preview_siemens
-// delete_siemens
-
-// browse_item
-// insert_supply_item
-// preview_supply_items
-// delete_supply_item

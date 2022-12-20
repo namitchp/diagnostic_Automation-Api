@@ -11,13 +11,13 @@ exports.browseLedger= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_ledger ");
+            .input("global",filter_value)
+            .execute("browse_ledger_new ");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -51,7 +51,7 @@ exports.browseLedger= asyncHandler(async (req, res) => {
           return pool
             .request()
           .input("ledger_id",req.body.ledger_id)
-          .input("leader_name",req.body.leader_name)
+          .input("ledger_name",req.body.ledger_name)
           .input("description",req.body.description)
           .input("user_id",req.body.user_id)
           // .input("user_name",req.body.user_name)
@@ -154,13 +154,13 @@ exports.browseFinance= asyncHandler(async (req, res) => {
       .then((pool) => {
         return pool
           .request()
-          // .input("global",filter_value)
-          .execute("browse_finance");
+          .input("global",filter_value)
+          .execute("browse_finance_new");
       })
       .then((result) => {
         const data =
           result.recordset.length > 0
-            ? result.recordset.slice(
+            ? result.recordset.reverse().slice(
                 (page_number - 1) * page_size,
                 page_number * page_size
               )
@@ -297,13 +297,13 @@ exports.browseTabs= asyncHandler(async (req, res) => {
       .then((pool) => {
         return pool
           .request()
-          // .input("global",filter_value)
-          .execute("browse_costing_tab");
+          .input("global",filter_value)
+          .execute("browse_costing_tab_new");
       })
       .then((result) => {
         const data =
           result.recordset.length > 0
-            ? result.recordset.slice(
+            ? result.recordset.reverse().slice(
                 (page_number - 1) * page_size,
                 page_number * page_size
               )

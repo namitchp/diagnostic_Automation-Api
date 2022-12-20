@@ -1,7 +1,7 @@
 const { config } = require("../../../../config/config");
 const sql=require("mssql");
 const asyncHandler=require("express-async-handler");
-exports.browseCategory= asyncHandler(async (req, res) => {
+exports.browseQuo= asyncHandler(async (req, res) => {
     try {
       const { filter_value, page_number, page_size, sort_column, sort_order } =
         req.query;
@@ -11,7 +11,7 @@ exports.browseCategory= asyncHandler(async (req, res) => {
           return pool
             .request()
             .input("global",filter_value)
-            .execute("list_pcategory_master_new ");
+            .execute("browse_quot_status_new");
         })
         .then((result) => {
           const data =
@@ -41,7 +41,7 @@ exports.browseCategory= asyncHandler(async (req, res) => {
       });
     }
   });
-  exports.insertCategory= asyncHandler(async (req, res) => {
+  exports.insertQuo= asyncHandler(async (req, res) => {
     try {
     
       await sql
@@ -49,13 +49,12 @@ exports.browseCategory= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-          .input("p_category_id",req.body.p_category_id)
-          .input("p_category_name",req.body.p_category_name)
+          .input("status_id",req.body.status_id)
+          .input("status_name",req.body.status_name)
           .input("description",req.body.description)
           .input("user_id",req.body.user_id)
-          .input("user_name",req.body.user_name)
           .output("new_identity")
-            .execute("insert_pcategory_master ");
+            .execute("insert_quot_status_master ");
         })
         .then((result) => {
         
@@ -78,8 +77,7 @@ exports.browseCategory= asyncHandler(async (req, res) => {
       });
     }
   });
-
-  exports.deleteCategory= asyncHandler(async (req, res) => {
+  exports.deleteQuo= asyncHandler(async (req, res) => {
     try {
      
       await sql
@@ -87,8 +85,8 @@ exports.browseCategory= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            .input("p_category_id",req.body.p_category_id)
-            .execute("delete_pcategory ");
+            .input("status_id",req.body.status_id)
+            .execute("delete_quot_status ");
         })
         .then((result) => {
           
@@ -111,24 +109,21 @@ exports.browseCategory= asyncHandler(async (req, res) => {
       });
     }
   });
-  exports.previewCategory= asyncHandler(async (req, res) => {
+  exports.previewQuo= asyncHandler(async (req, res) => {
     try {
-    
       await sql
         .connect(config)
         .then((pool) => {
           return pool
             .request()
-          .input("p_category_id",req.body.p_category_id)
-            .execute("preview_p_category");
+          .input("status_id",req.body.status_id)
+            .execute("preview_quot_status");
         })
         .then((result) => {
-        
           res.send({
             status: 200,
           message:"success",
           data:result.recordset
-      
           });
         })
         .catch((err) => {
@@ -144,45 +139,3 @@ exports.browseCategory= asyncHandler(async (req, res) => {
       });
     }
   });
-
-
-
-// browse_group
-// insert_group_master
-// preview_group
-// delete_group
-
-// browse_pincode
-// insert_pincode_master
-// preview_pincode
-// delete_pincode
-
-// browse_region
-// insert_region_master
-// preview_region
-// delete_region
-
-// browse_rating
-// insert_rating_master
-// preview_rating
-// delete_rating
-
-// browse_department
-// insert_department_master
-// preview_department
-// delete_department
-
-// browse_designation
-// insert_designation_master
-// preview_designation
-// delete_designation
-
-// browse_siemens
-// insert_siemens_engg
-// preview_siemens
-// delete_siemens
-
-// browse_item
-// insert_supply_item
-// preview_supply_items
-// delete_supply_item

@@ -10,13 +10,13 @@ exports.browseRating= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_rating ");
+            .input("global",filter_value)
+            .execute("browse_rating_new ");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -55,7 +55,7 @@ exports.browseRating= asyncHandler(async (req, res) => {
           .input("user_id",req.body.user_id)
           .input("user_name",req.body.user_name)
           .output("new_identity")
-            .execute("insert_rating_master ");
+            .execute("insert_rating_master");
         })
         .then((result) => {
         

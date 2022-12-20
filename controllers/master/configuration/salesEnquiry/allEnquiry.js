@@ -11,13 +11,13 @@ exports.browseType= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("list_enq_type ");
+            .input("global",filter_value)
+            .execute("list_enq_type_new ");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -154,13 +154,13 @@ exports.browsePriority= asyncHandler(async (req, res) => {
       .then((pool) => {
         return pool
           .request()
-          // .input("global",filter_value)
-          .execute("browse_enq_priority");
+          .input("global",filter_value)
+          .execute("browse_enq_priority_new");
       })
       .then((result) => {
         const data =
           result.recordset.length > 0
-            ? result.recordset.slice(
+            ? result.recordset.reverse().slice(
                 (page_number - 1) * page_size,
                 page_number * page_size
               )
@@ -297,13 +297,13 @@ exports.browseReference= asyncHandler(async (req, res) => {
       .then((pool) => {
         return pool
           .request()
-          // .input("global",filter_value)
-          .execute("list_enq_ref ");
+          .input("global",filter_value)
+          .execute("list_enq_ref_new ");
       })
       .then((result) => {
         const data =
           result.recordset.length > 0
-            ? result.recordset.slice(
+            ? result.recordset.reverse().slice(
                 (page_number - 1) * page_size,
                 page_number * page_size
               )
@@ -440,13 +440,13 @@ exports.browseStatus= asyncHandler(async (req, res) => {
       .then((pool) => {
         return pool
           .request()
-          // .input("global",filter_value)
-          .execute("list_enq_status ");
+          .input("global",filter_value)
+          .execute("list_enq_status_new ");
       })
       .then((result) => {
         const data =
           result.recordset.length > 0
-            ? result.recordset.slice(
+            ? result.recordset.reverse().slice(
                 (page_number - 1) * page_size,
                 page_number * page_size
               )

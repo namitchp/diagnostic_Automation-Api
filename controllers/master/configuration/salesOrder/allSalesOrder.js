@@ -11,13 +11,13 @@ exports.browseClause= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_ld");
+            .input("global",filter_value)
+            .execute("browse_ldclause_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -50,8 +50,8 @@ exports.browseClause= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-          .input("Id_id",req.body.Id_id)
-          .input("Id_name",req.body.Id_name)
+          .input("ld_id",req.body.ld_id)
+          .input("ld_name",req.body.ld_name)
           .input("description",req.body.description)
           .input("user_id",req.body.user_id)
           // .input("user_name",req.body.user_name)
@@ -87,8 +87,8 @@ exports.browseClause= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            .input("Id_id",req.body.Id_id)
-            .execute("delete_ld ");
+            .input("ld_id",req.body.ld_id)
+            .execute("delete_ldclause ");
         })
         .then((result) => {
           
@@ -119,8 +119,8 @@ exports.browseClause= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-          .input("Id_id",req.body.Id_id)
-            .execute("preview_ld");
+          .input("ld_id",req.body.ld_id)
+            .execute("preview_ldclause");
         })
         .then((result) => {
         
@@ -154,13 +154,13 @@ exports.browseFreight= asyncHandler(async (req, res) => {
       .then((pool) => {
         return pool
           .request()
-          // .input("global",filter_value)
-          .execute("browse_freight");
+          .input("global",filter_value)
+          .execute("browse_freight_new");
       })
       .then((result) => {
         const data =
           result.recordset.length > 0
-            ? result.recordset.slice(
+            ? result.recordset.reverse().slice(
                 (page_number - 1) * page_size,
                 page_number * page_size
               )
@@ -299,13 +299,13 @@ exports.browseInsurance= asyncHandler(async (req, res) => {
       .then((pool) => {
         return pool
           .request()
-          // .input("global",filter_value)
-          .execute("browse_insurance");
+          .input("global",filter_value)
+          .execute("browse_insurance_new");
       })
       .then((result) => {
         const data =
           result.recordset.length > 0
-            ? result.recordset.slice(
+            ? result.recordset.reverse().slice(
                 (page_number - 1) * page_size,
                 page_number * page_size
               )
@@ -443,13 +443,13 @@ exports.browseOctroi= asyncHandler(async (req, res) => {
           .then((pool) => {
             return pool
               .request()
-              // .input("global",filter_value)
-              .execute("browse_octroi");
+              .input("global",filter_value)
+              .execute("browse_octroi_new");
           })
           .then((result) => {
             const data =
               result.recordset.length > 0
-                ? result.recordset.slice(
+                ? result.recordset.reverse().slice(
                     (page_number - 1) * page_size,
                     page_number * page_size
                   )
@@ -587,13 +587,13 @@ exports.browseOctroi= asyncHandler(async (req, res) => {
       .then((pool) => {
         return pool
           .request()
-          // .input("global",filter_value)
-          .execute("browse_pf");
+          .input("global",filter_value)
+          .execute("browse_pf_new");
       })
       .then((result) => {
         const data =
           result.recordset.length > 0
-            ? result.recordset.slice(
+            ? result.recordset.reverse().slice(
                 (page_number - 1) * page_size,
                 page_number * page_size
               )
@@ -730,13 +730,13 @@ exports.browseLoading= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_loading");
+            .input("global",filter_value)
+            .execute("browse_loading_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -873,13 +873,13 @@ exports.browseLoading= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_boarding");
+            .input("global",filter_value)
+            .execute("browse_boarding_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -1016,13 +1016,13 @@ exports.browseLoading= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_travel");
+            .input("global",filter_value)
+            .execute("browse_travel_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -1159,13 +1159,13 @@ exports.browseLoading= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_conveyance");
+            .input("global",filter_value)
+            .execute("browse_conveyance_configuration_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -1236,7 +1236,7 @@ exports.browseLoading= asyncHandler(async (req, res) => {
           return pool
             .request()
             .input("conveyance_id",req.body.conveyance_id)
-            .execute("delete_conveyance ");
+            .execute("delete_conveyance_configuration ");
         })
         .then((result) => {
           
@@ -1268,7 +1268,7 @@ exports.browseLoading= asyncHandler(async (req, res) => {
           return pool
             .request()
           .input("conveyance_id",req.body.conveyance_id)
-            .execute("preview_conveyance");
+            .execute("preview_conveyance_configuration");
         })
         .then((result) => {
         
@@ -1302,13 +1302,13 @@ exports.browseLoading= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_payment");
+            .input("global",filter_value)
+            .execute("browse_payment_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -1445,13 +1445,13 @@ exports.browseLoading= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_salestax");
+            .input("global",filter_value)
+            .execute("browse_salestax_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -1588,13 +1588,13 @@ exports.browseLoading= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_exciseduty");
+            .input("global",filter_value)
+            .execute("browse_exciseduty_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -1732,13 +1732,13 @@ exports.browseLoading= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_servicetax");
+            .input("global",filter_value)
+            .execute("browse_servicetax_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -1875,13 +1875,13 @@ exports.browseDelivery= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_delivery");
+            .input("global",filter_value)
+            .execute("browse_delivery_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -2018,8 +2018,8 @@ exports.browseDelivery= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_validity");
+            .input("global",filter_value)
+            .execute("browse_validity_new");
         })
         .then((result) => {
           const data =
@@ -2161,13 +2161,13 @@ exports.browseDelivery= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_mode_of_dispatch");
+            .input("global",filter_value)
+            .execute("browse_mode_of_dispatch_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
@@ -2304,13 +2304,13 @@ exports.browseDelivery= asyncHandler(async (req, res) => {
         .then((pool) => {
           return pool
             .request()
-            // .input("global",filter_value)
-            .execute("browse_inspection");
+            .input("global",filter_value)
+            .execute("browse_inspection_new");
         })
         .then((result) => {
           const data =
             result.recordset.length > 0
-              ? result.recordset.slice(
+              ? result.recordset.reverse().slice(
                   (page_number - 1) * page_size,
                   page_number * page_size
                 )
