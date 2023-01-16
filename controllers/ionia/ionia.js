@@ -8,16 +8,13 @@ const multer=require("multer")
 require('dotenv').config();
 const axios=require("axios");
 const sendWhatsapp = async (mobile, name,link="https://diagnodeapi.quickgst.in") => {
-
     var msg = `Dear ${name.toUpperCase()},                                                                                                                       Thank you for the registration.                                                                                                                        IONIA INDIA Welcomes you on the Distributor's meet.                                                                                                                        For more event details please check the video.                                                                                                                                                                                                                                                  Thanks and Regards!                                                                                                                      TEAM IONIA`;
     token = process.env.TOKEN || 2334
     await axios.get("https://md1.enotify.app/api/sendText?token=" + token + "&phone=91" + mobile + "&link=" + link + "&message=" + msg + "")
         .then(response => {
             console.log(response.data.status)
-       
         })
 };
-
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
         // Uploads is the Upload_folder_name
@@ -63,10 +60,7 @@ var upload = multer({
         );
     },
 });
-
 ioniaRoutes.post("/file",upload.single("file_path"),(req,res)=>{
-   
-    
     try{
       
         res.json({
