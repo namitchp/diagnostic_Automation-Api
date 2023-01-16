@@ -59,7 +59,6 @@ mdc.post('/picksomdc',asyncHandler(async(req,res,next)=>{
               ? result.recordset.slice(0,10
                 )
               : [];
-            // const data=result.recordset.length > 0 ?result.recordset.slice((pageNo-1)*pageSize,pageNo*pageSize):[];
             res.send({
                 status:200,
                 message:"success",

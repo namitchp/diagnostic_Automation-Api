@@ -17,7 +17,6 @@ menu.get('/menu_list_level1',asyncHandler(async(req,res,next)=>{
                 status:200,
                 message:"success",
                 data:result.recordset,
-                
             })
         }).catch(err=>{
             res.send({

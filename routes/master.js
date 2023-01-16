@@ -16,11 +16,54 @@ const { browseItem, insertItem, previewItem, deleteItem } = require('../controll
 const { browseUnit, insertUnit, previewUnit, deleteUnit } = require('../controllers/master/configuration/product/unit'); 
 const { browseType, insertType, previewType, deleteType, browsePriority, insertPriority, previewPriority, deletePriority, browseStatus, insertStatus, previewStatus, deleteStatus, browseReference, insertReference, previewReference, deleteReference } = require('../controllers/master/configuration/salesEnquiry/allEnquiry');
 const { browseClause, insertClause, previewClause, deleteClause, browseFreight, insertFreight, previewFreight, deleteFreight, browseInsurance, insertInsurance, previewInsurance, deleteInsurance, browseOctroi, insertOctroi, previewOctroi, deleteOctroi, browsePf, insertPf, previewPf, deletePf, browseLoading, insertLoading, previewLoading, deleteLoading, browseBoarding, insertBoarding, previewBoarding, deleteBoarding, browseTravel, insertTravel, previewTravel, deleteTravel, browseConveyance, insertConveyance, previewConveyance, deleteConveyance, browsePayment, insertPayment, previewPayment, deletePayment, browseSalestax, insertSalestax, previewSalestax, deleteSalestax, browseExciseduty, insertExciseduty, previewExciseduty, deleteExciseduty, browseDelivery, insertDelivery, previewDelivery, deleteDelivery, browseValidity, insertValidity, previewValidity, deleteValidity, browseMode, insertMode, previewMode, deleteMode, browseInspection, insertInspection, previewInspection, deleteInspection } = require('../controllers/master/configuration/salesOrder/allSalesOrder');
+const { browseMenu, UpdateMenu, listTransection } = require('../controllers/master/configuration/menuStructure');
+const { groupList, regionList, listGroupFilterMarketingEngg, browseAccountMaster, insertAccountMaster, pincode, designation, department, rating, siemensEngg, exciseDuty, pf, saleTax, serviceTax, travel, conveyance, freight, loading, insurance, boarding, inspection, ld, modeOfDispatch, validity, delivery, payment, octroi, finance, dropdownTermAndCondition, browseAccountMasterTcs, updateAccountMasterTcs, deleteAccountMasterTcs, supplierlist, listAccountMasterTcsCustomer } = require('../controllers/master/accountMaster/customer');
+const { upload } = require('../files/file');
+const { insertProductMaster, browseProduct, lpList, uomList, pgroupList, dropdownList, ggList, updateProductEdit, updateProductMoving, updateProductlp, updateProductListPrice } = require('../controllers/master/productMaster/productMaster');
 const masterRoutes=require('express').Router();
+//file upload api
+masterRoutes.post("/file",upload.single("file_path"),(req,res)=>{
+    try{
+        res.json({
+            status:200,
+            message:"success",
+            file_name:req.file
+        })
+    }catch(err){
+      
+        res.send({
+            message:""+err,
+            status:500
+        })
+    }
+});
+//product master
+masterRoutes.post("/insert_product_master",insertProductMaster);
+masterRoutes.post("/browse_product_master",browseProduct);
+masterRoutes.post("/dropdown_product",ggList,lpList,uomList,pgroupList,dropdownList);
+masterRoutes.post("/update_product_edit",updateProductEdit);
+masterRoutes.post("/update_product_moving",updateProductMoving);
+masterRoutes.post("/update_product_lp",updateProductlp);
+masterRoutes.post("/update_product_list_price",updateProductListPrice);
 
-//Account Master
+//Account Master customer  supplier and tcs
+// tcs
+masterRoutes.post("/list_account_master_tcs",supplierlist,listAccountMasterTcsCustomer);
+masterRoutes.post("/browse_account_master_tcs",browseAccountMasterTcs);
+masterRoutes.post("/insert_account_master_tcs",updateAccountMasterTcs);
+masterRoutes.post("/delete_account_master_tcs",deleteAccountMasterTcs);
+
+//customer  supplier
+masterRoutes.post("/browse_account_master",browseAccountMaster);
+masterRoutes.post("/insert_account_master",insertAccountMaster);
+masterRoutes.post("/listGroupFilterMarketingEngg",groupList,regionList,pincode,designation,department,rating,siemensEngg,listGroupFilterMarketingEngg);
+masterRoutes.post("/dropdown_term_and_condition", exciseDuty,pf,saleTax,serviceTax,travel,conveyance,freight,loading,insurance,boarding,inspection,ld,modeOfDispatch,validity,delivery,payment,octroi,finance);
 
 ///configure master
+//menu stracture
+masterRoutes.post("/browse_menu",browseMenu);
+masterRoutes.post("/insert_menu",UpdateMenu);
+masterRoutes.post("/list_transection",listTransection);
 ///group  Account
 masterRoutes.post("/browse_group",browseGroup);
 masterRoutes.post("/insert_group",insertGroup);
