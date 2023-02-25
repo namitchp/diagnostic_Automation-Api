@@ -17,9 +17,11 @@ const { browseUnit, insertUnit, previewUnit, deleteUnit } = require('../controll
 const { browseType, insertType, previewType, deleteType, browsePriority, insertPriority, previewPriority, deletePriority, browseStatus, insertStatus, previewStatus, deleteStatus, browseReference, insertReference, previewReference, deleteReference } = require('../controllers/master/configuration/salesEnquiry/allEnquiry');
 const { browseClause, insertClause, previewClause, deleteClause, browseFreight, insertFreight, previewFreight, deleteFreight, browseInsurance, insertInsurance, previewInsurance, deleteInsurance, browseOctroi, insertOctroi, previewOctroi, deleteOctroi, browsePf, insertPf, previewPf, deletePf, browseLoading, insertLoading, previewLoading, deleteLoading, browseBoarding, insertBoarding, previewBoarding, deleteBoarding, browseTravel, insertTravel, previewTravel, deleteTravel, browseConveyance, insertConveyance, previewConveyance, deleteConveyance, browsePayment, insertPayment, previewPayment, deletePayment, browseSalestax, insertSalestax, previewSalestax, deleteSalestax, browseExciseduty, insertExciseduty, previewExciseduty, deleteExciseduty, browseDelivery, insertDelivery, previewDelivery, deleteDelivery, browseValidity, insertValidity, previewValidity, deleteValidity, browseMode, insertMode, previewMode, deleteMode, browseInspection, insertInspection, previewInspection, deleteInspection } = require('../controllers/master/configuration/salesOrder/allSalesOrder');
 const { browseMenu, UpdateMenu, listTransection } = require('../controllers/master/configuration/menuStructure');
-const { groupList, regionList, listGroupFilterMarketingEngg, browseAccountMaster, insertAccountMaster, pincode, designation, department, rating, siemensEngg, exciseDuty, pf, saleTax, serviceTax, travel, conveyance, freight, loading, insurance, boarding, inspection, ld, modeOfDispatch, validity, delivery, payment, octroi, finance, dropdownTermAndCondition, browseAccountMasterTcs, updateAccountMasterTcs, deleteAccountMasterTcs, supplierlist, listAccountMasterTcsCustomer } = require('../controllers/master/accountMaster/customer');
+const { groupList, regionList, listGroupFilterMarketingEngg, browseAccountMaster, insertAccountMaster, pincode, designation, department, rating, siemensEngg, exciseDuty, pf, saleTax, serviceTax, travel, conveyance, freight, loading, insurance, boarding, inspection, ld, modeOfDispatch, validity, delivery, payment, octroi, finance, dropdownTermAndCondition, browseAccountMasterTcs, updateAccountMasterTcs, deleteAccountMasterTcs, supplierlist, listAccountMasterTcsCustomer, previewAccountMaster, deleteAccountMaster } = require('../controllers/master/accountMaster/customer');
 const { upload } = require('../files/file');
-const { insertProductMaster, browseProduct, lpList, uomList, pgroupList, dropdownList, ggList, updateProductEdit, updateProductMoving, updateProductlp, updateProductListPrice } = require('../controllers/master/productMaster/productMaster');
+const { insertProductMaster, browseProduct, lpList, uomList, pgroupList, dropdownList, ggList, updateProductEdit, updateProductMoving, updateProductlp, updateProductListPrice, listItem, listAi, listDi, listDo, listFc, listAo, listFm, deleteProductmaster, previewProductmaster } = require('../controllers/master/productMaster/productMaster');
+const { browseMaterialCode, insertMaterialCode, partyNameList, pickCustomer, pickItem, deleteMaterialCode, previewMaterialCodeProduct, previewMaterialCodeCustomer, previewMaterialCodeMain } = require('../controllers/master/materialCode');
+const { browseEmployeeMaster, insertEmployeeMaster, previewEmployeemaster, deleteEmployeemaster, listDepartmentIncharge, listDepartment } = require('../controllers/master/employeeMaster');
 const masterRoutes=require('express').Router();
 //file upload api
 masterRoutes.post("/file",upload.single("file_path"),(req,res)=>{
@@ -36,11 +38,31 @@ masterRoutes.post("/file",upload.single("file_path"),(req,res)=>{
             status:500
         })
     }
-});
+})
+///employee master 
+masterRoutes.post("/browse_employee_master",browseEmployeeMaster);
+masterRoutes.post("/insert_employee_master",insertEmployeeMaster);
+masterRoutes.post("/delete_employee_master",deleteEmployeemaster);
+masterRoutes.post("/preview_employee_master",previewEmployeemaster);
+masterRoutes.post("/dropdown_employee",designation,department,listDepartmentIncharge);
+// masterRoutes.post("/list_department",listDepartment);
+
+///material code
+masterRoutes.post("/browse_material_code",browseMaterialCode);
+masterRoutes.post("/preview_material_code",previewMaterialCodeCustomer,previewMaterialCodeProduct,previewMaterialCodeMain);
+masterRoutes.post("/insert_material_code",insertMaterialCode);
+masterRoutes.post("/delete_material_code",deleteMaterialCode);
+masterRoutes.post("/party_name_list",partyNameList);
+masterRoutes.post("/pick_customer",pickCustomer);
+masterRoutes.post("/pick_item",pickItem);
 //product master
+//drop techenical list
+masterRoutes.post("/dropdown_techenical",listAi,listDi,listDo,listFc,listAo,listFm);
 masterRoutes.post("/insert_product_master",insertProductMaster);
+masterRoutes.post("/preview_product_master",previewProductmaster);
+masterRoutes.post("/delete_product_master",deleteProductmaster);
 masterRoutes.post("/browse_product_master",browseProduct);
-masterRoutes.post("/dropdown_product",ggList,lpList,uomList,pgroupList,dropdownList);
+masterRoutes.post("/dropdown_product",ggList,lpList,uomList,pgroupList,listItem,dropdownList);
 masterRoutes.post("/update_product_edit",updateProductEdit);
 masterRoutes.post("/update_product_moving",updateProductMoving);
 masterRoutes.post("/update_product_lp",updateProductlp);
@@ -56,6 +78,8 @@ masterRoutes.post("/delete_account_master_tcs",deleteAccountMasterTcs);
 //customer  supplier
 masterRoutes.post("/browse_account_master",browseAccountMaster);
 masterRoutes.post("/insert_account_master",insertAccountMaster);
+masterRoutes.post("/preview_account_master",previewAccountMaster);
+masterRoutes.post("/delete_account_master",deleteAccountMaster);
 masterRoutes.post("/listGroupFilterMarketingEngg",groupList,regionList,pincode,designation,department,rating,siemensEngg,listGroupFilterMarketingEngg);
 masterRoutes.post("/dropdown_term_and_condition", exciseDuty,pf,saleTax,serviceTax,travel,conveyance,freight,loading,insurance,boarding,inspection,ld,modeOfDispatch,validity,delivery,payment,octroi,finance);
 

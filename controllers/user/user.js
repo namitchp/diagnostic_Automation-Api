@@ -143,6 +143,35 @@ userRoute.post("/transaction_menu_list",asyncHandler(async(req,res,next)=>{
         })
     }
 }));
+
+//employe List
+userRoute.post("/employe_list",asyncHandler(async(req,res,next)=>{
+    try{
+   await sql.connect(config.config)
+    .then(pool=>{
+        return pool.request()
+        .input("global",req.body.global)
+        .execute("list_employee_master_new")
+    }).then(result=>{
+        res.send({
+            status:200,
+            message:"success",
+            data:result.recordset
+        })
+    }).catch(err=>{
+        res.send({
+            message:err,
+            status:400
+        })
+    })
+
+    }catch(err){
+        res.send({
+            status:500,
+            message:err
+        })
+    }
+}));
 //get_transaction_right
 userRoute.post("/get_transaction_right",asyncHandler(async(req,res,next)=>{
     try{
@@ -171,11 +200,39 @@ userRoute.post("/get_transaction_right",asyncHandler(async(req,res,next)=>{
         })
     }
 }));
+userRoute.post("/get_transaction_right_employe",asyncHandler(async(req,res,next)=>{
+    try{
+   await sql.connect(config.config)
+    .then(pool=>{
+        return pool.request()
+        .input("emp_id",req.body.emp_id)
+        .execute("get_transaction_right_emp")
+    }).then(result=>{
+        res.send({
+            status:200,
+            message:"success",
+            data:result.recordset
+        })
+    }).catch(err=>{
+        res.send({
+            message:err,
+            status:400
+        })
+    })
+
+    }catch(err){
+        res.send({
+            status:500,
+            message:err
+        })
+    }
+}));
 //user right update
 userRoute.post("/update_user_right",asyncHandler(async(req,res,next)=>{
     try{
         const userRight=new sql.Table("user_rights_new")
         userRight.columns.add("user_id",sql.Int)
+        userRight.columns.add("transaction_id",sql.Int)
         userRight.columns.add("view_right",sql.Bit)
         userRight.columns.add("insert_right",sql.Bit)
         userRight.columns.add("update_right",sql.Bit)
@@ -185,6 +242,7 @@ userRoute.post("/update_user_right",asyncHandler(async(req,res,next)=>{
         userRight.columns.add("special_column",sql.Bit)
   req.body.userRight.forEach(element => {
     userRight.rows.add(element.user_id
+        ,element.transaction_id
         ,element.view_right
         ,element.insert_right
         ,element.update_right
@@ -224,5 +282,92 @@ userRoute.post("/update_user_right",asyncHandler(async(req,res,next)=>{
         })
     }
 }));
+//employe
+userRoute.post("/update_user_right_emp",asyncHandler(async(req,res,next)=>{
+    try{
+        const userRight=new sql.Table("user_rights_new")
+        userRight.columns.add("user_id",sql.Int)
+        userRight.columns.add("transaction_id",sql.Int)
+        userRight.columns.add("view_right",sql.Bit)
+        userRight.columns.add("insert_right",sql.Bit)
+        userRight.columns.add("update_right",sql.Bit)
+        userRight.columns.add("delete_right",sql.Bit)
+        userRight.columns.add("print_right",sql.Bit)
+        userRight.columns.add("approve_right",sql.Bit)
+        userRight.columns.add("special_column",sql.Bit)
+  req.body.userRight.forEach(element => {
+    userRight.rows.add(element.user_id
+        ,element.transaction_id
+        ,element.view_right
+        ,element.insert_right
+        ,element.update_right
+        ,element.delete_right
+        ,element.print_right
+        ,element.approve_right
+        ,element.special_column
+        )
+    
+  });
+
+   await sql.connect(config.config)
+    .then(pool=>{
+        return pool.request()
+        .input("emp_id",req.body.emp_id)
+        .input("user_rights_new",sql.TVP,userRight)
+        .input("user_id",req.body.user_id)
+        .execute("update_user_rights_emp")
+    }).then(result=>{
+        res.send({
+            status:200,
+            message:"success",
+        })
+    }).catch(err=>{
+        console.log(err)
+        res.send({
+            message:err,
+            status:400
+        })
+    })
+
+    }catch(err){
+        res.send({
+            status:500,
+            message:err
+        })
+    }
+}));
+
+
+//department list
+userRoute.post("/department_list",asyncHandler(async (req, res) => {
+    try {
+      await sql
+        .connect(config)
+        .then((pool) => {
+          return pool
+            .request()
+            .execute("list_department");
+        })
+        .then((result) => {
+          res.send({
+            status: 200,
+            message:"success",
+            data:result.recordset,
+           
+          });
+        })
+        .catch((err) => {
+          res.send({
+            status: 400,
+            message: err,
+          });
+        });
+    } catch (error) {
+      res.status(500).send({
+        status: 500,
+        message: error,
+      });
+    }
+  }))
 
 module.exports={userRoute}

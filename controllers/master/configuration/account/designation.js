@@ -14,13 +14,12 @@ exports.browseDesignation= asyncHandler(async (req, res) => {
             .execute("browse_designation_new ");
         })
         .then((result) => {
-          const data =
-            result.recordset.length > 0
-              ? result.recordset.reverse().slice(
-                  (page_number - 1) * page_size,
-                  page_number * page_size
-                )
-              : [];
+           const data =
+          result.recordset.length > 0
+            ? result.recordset
+                .reverse()
+                .slice(parseInt(page_number)*parseInt(page_size), parseInt(page_size)*(parseInt(page_number)+1))
+            : [];
           res.send({
             status: 200,
             message:"success",

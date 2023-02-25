@@ -20,13 +20,12 @@ exports.browseCcrIn= asyncHandler(async (req, res) => {
             .execute("browse_ccrin");
         })
         .then((result) => {
-          const data =
-            result.recordset.length > 0
-              ? result.recordset.slice(
-                  (page_number - 1) * page_size,
-                  page_number * page_size
-                )
-              : [];
+           const data =
+          result.recordset.length > 0
+            ? result.recordset
+                .reverse()
+                .slice(parseInt(page_number)*parseInt(page_size), parseInt(page_size)*(parseInt(page_number)+1))
+            : [];
           res.send({
             status: 200,
             data: data,
@@ -65,13 +64,12 @@ exports.browseCCrOut= asyncHandler(async (req, res) => {
             .execute("browse_ccrout");
         })
         .then((result) => {
-          const data =
-            result.recordset.length > 0
-              ? result.recordset.slice(
-                  (page_number - 1) * page_size,
-                  page_number * page_size
-                )
-              : [];
+           const data =
+          result.recordset.length > 0
+            ? result.recordset
+                .reverse()
+                .slice(parseInt(page_number)*parseInt(page_size), parseInt(page_size)*(parseInt(page_number)+1))
+            : [];
           res.send({
             status: 200,
             data: data,

@@ -17,6 +17,7 @@ menu.get('/menu_list_level1',asyncHandler(async(req,res,next)=>{
                 status:200,
                 message:"success",
                 data:result.recordset,
+                total:result.recordset.length,
             })
         }).catch(err=>{
             res.send({
@@ -50,6 +51,7 @@ menu.post('/menu_list_level2',asyncHandler(async(req,res,next)=>{
                 status:200,
                 message:"success",
                 data:result.recordset,
+                total:result.recordset.length,
                 
             })
         }).catch(err=>{
@@ -84,6 +86,7 @@ menu.post('/menu_list_level3',asyncHandler(async(req,res,next)=>{
                 status:200,
                 message:"success",
                 data:result.recordset,
+                total:result.recordset.length,
                 
             })
         }).catch(err=>{
@@ -117,6 +120,7 @@ menu.post('/menu_list_level4',asyncHandler(async(req,res,next)=>{
                 status:200,
                 message:"success",
                 data:result.recordset,
+                total:result.recordset.length,
                 
             })
         }).catch(err=>{

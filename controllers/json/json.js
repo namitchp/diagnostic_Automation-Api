@@ -22,7 +22,7 @@ jsonRoute.post("/read_json", async (req, res) => {
     fs.readFile(jsonFile, "utf8", function (err, data) {
         if (err) throw err;
         const [users] =JSON.parse(data).filter((val)=>val.user_id==user_id&&val.browse_id==browse_id)
-        if(users!="undefined"){
+        if(users){
         res.status(200).json({
             message:"success",
             status:200,
